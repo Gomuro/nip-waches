@@ -3,6 +3,7 @@ import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Products from "./components/Products/Products";
+import Navbar from "./components/Navbar/Navbar";
 
 import { commerce } from "./lib/commerce";
 
@@ -27,6 +28,7 @@ const App = () => {
 
   return (
     <div>
+      <Navbar />
       <Products products={products} />
     </div>
   );
