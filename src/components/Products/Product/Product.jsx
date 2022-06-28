@@ -15,16 +15,20 @@ import {
 
 import useStyles from "./styles";
 
-const Product = ({ product, onAddToCart, handleRemoveToCart }) => {
+const Product = ({ product, onAddToCart, onRemoveToCart }) => {
   const classes = useStyles();
 
   const handleAddToCart = () => onAddToCart(product.id, 1);
+
+  const handleRemoveToCart = () => {
+    onRemoveToCart(product.id);
+  };
 
   return (
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image={product.media.source}
+        image={product.image.url}
         title={product.name}
       />
       <CardContent>
@@ -45,20 +49,26 @@ const Product = ({ product, onAddToCart, handleRemoveToCart }) => {
         <Typography
           dangerouslySetInnerHTML={{ __html: product.description }}
           variant="body1"
-          color="text"
+          color="primary"
           component="p"
         />
         <Box className={classes.btnGroup}>
           <Box>
             <CardActions disableSpacing className={classes.cardActions}>
-              <IconButton aria-label="Add to Cart" onClick={handleAddToCart}>
+              <IconButton
+                aria-label="Add to Cart"
+                onClick={() => handleAddToCart()}
+              >
                 <AddShoppingCartOutlined color="primary" />
               </IconButton>
             </CardActions>
           </Box>
           <Box>
             <CardActions disableSpacing className={classes.cardActions}>
-              <IconButton aria-label="Add to Cart" onClick={handleRemoveToCart}>
+              <IconButton
+                aria-label="Add to Cart"
+                onClick={() => handleRemoveToCart()}
+              >
                 <RemoveShoppingCartOutlined color="error" />
               </IconButton>
             </CardActions>

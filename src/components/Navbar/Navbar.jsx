@@ -4,8 +4,6 @@ import {
   Toolbar,
   IconButton,
   Badge,
-  MenuItem,
-  Menu,
   Typography,
   Box,
 } from "@material-ui/core";
@@ -14,7 +12,7 @@ import useStyles from "./styles";
 
 import logo from "../../assets/commerce.png";
 
-const Navbar = () => {
+const Navbar = ({ totalItems }) => {
   const classes = useStyles();
   return (
     <>
@@ -32,12 +30,12 @@ const Navbar = () => {
               height="40px"
               className={classes.logo}
             ></img>
-            E commerce
+            nipwatches
           </Typography>
           <Box className={classes.grow} />
           <Box className={classes.button}>
             <IconButton aria-label="Show card Item" color="inherit">
-              <Badge badgeContent={2} color="inherit">
+              <Badge badgeContent={totalItems} color="secondary">
                 <ShoppingCart />
               </Badge>
             </IconButton>

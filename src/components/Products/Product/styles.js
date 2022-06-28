@@ -4,11 +4,11 @@ export default makeStyles(() => ({
   root: {
     // maxWidth: 345, original width style
     maxWidth: "100%",
-    height: "80vh",
+    height: "900px",
   },
   media: {
     width: "100%",
-    height: "300px",
+    height: "400px",
   },
   cardActions: {
     display: "flex",
