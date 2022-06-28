@@ -15,14 +15,10 @@ import {
 
 import useStyles from "./styles";
 
-const Product = ({ product, onAddToCart, onRemoveToCart }) => {
+const Product = ({ product, onAddToCart }) => {
   const classes = useStyles();
 
   const handleAddToCart = () => onAddToCart(product.id, 1);
-
-  const handleRemoveToCart = () => {
-    onRemoveToCart(product.id);
-  };
 
   return (
     <Card className={classes.root}>
@@ -60,16 +56,6 @@ const Product = ({ product, onAddToCart, onRemoveToCart }) => {
                 onClick={() => handleAddToCart()}
               >
                 <AddShoppingCartOutlined color="primary" />
-              </IconButton>
-            </CardActions>
-          </Box>
-          <Box>
-            <CardActions disableSpacing className={classes.cardActions}>
-              <IconButton
-                aria-label="Add to Cart"
-                onClick={() => handleRemoveToCart()}
-              >
-                <RemoveShoppingCartOutlined color="error" />
               </IconButton>
             </CardActions>
           </Box>
