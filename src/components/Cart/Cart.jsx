@@ -1,30 +1,63 @@
 import React from "react";
-import { Container, Typography, Button, Grid } from "@material-ui/core";
+import { Container, Typography, Button, Grid, Box } from "@material-ui/core";
 
 import useStyles from "./styles";
 import CartItem from "./CartItem/CartItem";
 
-const Cart = ({ cart }) => {
+const Cart = ({
+  cart,
+  handleUpdateCartQty,
+  handleRemoveFromCart,
+  handleEmptyCart,
+}) => {
   const classes = useStyles();
-  const subTotal = cart.subtotal.formatted_with_code;
-  console.log("🚀 ~ file: cart.jsx ~ line 10 ~ Cart ~ subTotal", subTotal);
 
   const renderEmptyCart = () => (
     <Typography variant="subtitle1">
       You have no items in your shopping cart
     </Typography>
   );
-
-  if (!cart.line_items) return "Loading";
+  if (!cart.line_items && !cart.subtotal) return "Loading";
 
   const renderCart = () => (
     <>
       <Grid container className={classes.itemsContainer}>
         {cart.line_items.map((lineItem) => (
-          <CartItem key={lineItem.id} lineItem={lineItem} />
+          <CartItem
+            key={lineItem.id}
+            lineItem={lineItem}
+            onUpdateCartQty={handleUpdateCartQty}
+            onRemoveFromCart={handleRemoveFromCart}
+          />
         ))}
       </Grid>
-      <Typography variant="subtitle1">SubTotal:{subTotal}</Typography>
+      <Box className={classes.cartDetails}>
+        <Typography variant="h5">
+          SubTotal:
+          {cart.subtotal.formatted_with_code}
+        </Typography>
+        <Box>
+          <Button
+            className={classes.emptyButton}
+            type="button"
+            size="small"
+            variant="contained"
+            color="secondary"
+            onClick={handleEmptyCart}
+          >
+            Empty cart
+          </Button>
+          <Button
+            className={classes.checkoutButton}
+            type="button"
+            size="small"
+            variant="contained"
+            color="primary"
+          >
+            Checkout
+          </Button>
+        </Box>
+      </Box>
     </>
   );
 
@@ -34,7 +67,7 @@ const Cart = ({ cart }) => {
       <Typography className={classes.title} variant="h5" gutterBottom>
         Your Shopping Cart
       </Typography>
-      {!cart.line_items.length ? renderEmptyCart() : renderCart()}
+      {!cart.id ? renderEmptyCart() : renderCart()}
     </Container>
   );
 };

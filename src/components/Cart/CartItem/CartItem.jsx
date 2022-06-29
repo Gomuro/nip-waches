@@ -10,7 +10,7 @@ import {
 
 import useStyles from "./styles";
 
-const CartItem = ({ lineItem }) => {
+const CartItem = ({ lineItem, onUpdateCartQty, onRemoveToCart }) => {
   const classes = useStyles();
 
   return (
