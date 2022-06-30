@@ -11,6 +11,7 @@ import { ShoppingCart } from "@material-ui/icons";
 import useStyles from "./styles";
 
 import logo from "../../assets/commerce.png";
+import { Link } from "react-router-dom";
 
 const Navbar = ({ totalItems }) => {
   const classes = useStyles();
@@ -34,7 +35,12 @@ const Navbar = ({ totalItems }) => {
           </Typography>
           <Box className={classes.grow} />
           <Box className={classes.button}>
-            <IconButton aria-label="Show card Item" color="inherit">
+            <IconButton
+              component={Link}
+              to="/cart"
+              aria-label="Show card Item"
+              color="inherit"
+            >
               <Badge
                 overlap="rectangular"
                 badgeContent={totalItems}

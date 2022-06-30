@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { StoreProvider } from "./context/storeContext";
 
 import Products from "./components/Products/Products";
 import Navbar from "./components/Navbar/Navbar";
@@ -48,30 +49,30 @@ const App = () => {
   }, []);
   return (
     <div>
-      <Router>
-        <Navbar totalItems={cart.total_items} />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <Products products={products} onAddToCart={handleAddToCart} />
-            }
-          />
-          <Route
-            exact
-            path="/cart"
-            element={
-              <Cart
-                cart={cart}
-                handleUpdateCartQty={handleUpdateCartQty}
-                handleRemoveFromCart={handleRemoveFromCart}
-                handleEmptyCart={handleEmptyCart}
-              />
-            }
-          />
-        </Routes>
-      </Router>
+      <StoreProvider
+        value={{
+          onUpdateCartQty: handleUpdateCartQty,
+          onRemoveFromCart: handleRemoveFromCart,
+        }}
+      >
+        <Router>
+          <Navbar totalItems={cart.total_items} />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Products products={products} onAddToCart={handleAddToCart} />
+              }
+            />
+            <Route
+              exact
+              path="/cart"
+              element={<Cart cart={cart} onEmptyCart={handleEmptyCart} />}
+            />
+          </Routes>
+        </Router>
+      </StoreProvider>
     </div>
   );
 };
