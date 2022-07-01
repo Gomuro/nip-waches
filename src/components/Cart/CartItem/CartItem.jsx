@@ -5,6 +5,7 @@ import {
   CardActions,
   CardMedia,
   TextField,
+  Typography,
 } from "@material-ui/core";
 
 import StoreContext from "../../../context/storeContext";
@@ -14,8 +15,11 @@ import useStyles from "./styles";
 const CartItem = ({ lineItem }) => {
   const classes = useStyles();
   const { onUpdateCartQty, onRemoveFromCart } = useContext(StoreContext);
+  console.log(
+    "🚀 ~ file: CartItem.jsx ~ line 15 ~ CartItem ~ lineItem",
+    lineItem
+  );
   const [value, setValue] = useState(lineItem.quantity);
-  console.log(!value);
   const handleUpdateCartQty = (lineItemId, newQuantity) =>
     onUpdateCartQty(lineItemId, newQuantity);
 
@@ -37,18 +41,25 @@ const CartItem = ({ lineItem }) => {
         alt={lineItem.name}
         className={classes.media}
       />
+      <Typography variant="h5">
+        {lineItem.price.formatted_with_symbol}
+      </Typography>
       <CardActions className={classes.cardActions}>
         <div className={classes.buttons}>
           <Button
+            className={classes.button}
             type="button"
             size="small"
             variant="outlined"
             color="primary"
             onClick={() => setValue(+value - 1)}
+            disabled={value === 1 || value < 1 ? true : false}
           >
             -
           </Button>
+
           <TextField
+            className={classes.textField}
             type="number"
             value={value}
             onChange={(e) => setValue(e.target.value)}
@@ -75,7 +86,5 @@ const CartItem = ({ lineItem }) => {
     </Card>
   );
 };
-
-// if (!cart.line_items && !cart.subtotal) return "Loading";
 
 export default CartItem;

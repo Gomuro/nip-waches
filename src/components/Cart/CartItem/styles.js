@@ -1,7 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles(() => ({
-  card: {},
+  textField: {
+    maxWidth: "30%",
+  },
   media: {
     height: 260,
   },
@@ -15,5 +17,6 @@ export default makeStyles(() => ({
   buttons: {
     display: "flex",
     alignItems: "center",
+    maxWidth: "100%",
   },
 }));

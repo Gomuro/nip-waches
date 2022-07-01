@@ -20,9 +20,11 @@ const Navbar = ({ totalItems }) => {
       <AppBar position="fixed" className={classes.appBar} color="primary">
         <Toolbar>
           <Typography
+            component={Link}
+            to="/"
             gutterBottom
             variant="h5"
-            component="h2"
+            color="inherit"
             className={classes.title}
           >
             <img
@@ -31,7 +33,7 @@ const Navbar = ({ totalItems }) => {
               height="40px"
               className={classes.logo}
             ></img>
-            nipwatches
+            Nip Watches
           </Typography>
           <Box className={classes.grow} />
           <Box className={classes.button}>

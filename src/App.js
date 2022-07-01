@@ -6,6 +6,7 @@ import { StoreProvider } from "./context/storeContext";
 import Products from "./components/Products/Products";
 import Navbar from "./components/Navbar/Navbar";
 import Cart from "./components/Cart/Cart";
+import Checkout from "./components/Checkout/Checkout";
 
 import { commerce } from "./lib/commerce";
 
@@ -70,6 +71,7 @@ const App = () => {
               path="/cart"
               element={<Cart cart={cart} onEmptyCart={handleEmptyCart} />}
             />
+            <Route exact path="/checkout" element={<Checkout cart={cart} />} />
           </Routes>
         </Router>
       </StoreProvider>
