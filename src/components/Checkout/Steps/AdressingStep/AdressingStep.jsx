@@ -12,7 +12,7 @@ import {
 import { useForm, FormProvider } from "react-hook-form";
 import { commerce } from "../../../../lib/commerce";
 
-const AdressingStep = ({ checkoutToken }) => {
+const AdressingStep = ({ checkoutToken, next }) => {
   const [shippingCountries, setShippingCountries] = useState([]);
   const [shippingCountry, setShippingCountry] = useState("");
   const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
@@ -20,6 +20,8 @@ const AdressingStep = ({ checkoutToken }) => {
   const [shippingOptions, setShippingOptions] = useState([]);
   const [shippingOption, setShippingOption] = useState("");
   const methods = useForm();
+
+  console.log(shippingCountries);
 
   const fetchShippingCountries = async (checkoutTokenId) => {
     const { countries } = await commerce.services.localeListShippingCountries(
@@ -54,21 +56,30 @@ const AdressingStep = ({ checkoutToken }) => {
   };
 
   useEffect(() => {
+    if (checkoutToken === null) {
+      return;
+    }
     fetchShippingCountries(checkoutToken.id);
-  }, []);
+  }, [checkoutToken]);
 
   useEffect(() => {
+    if (checkoutToken === null) {
+      return;
+    }
     if (shippingCountry) fetchSubdivisions(shippingCountry);
-  }, [shippingCountry]);
+  }, [shippingCountry, checkoutToken]);
 
   useEffect(() => {
+    if (checkoutToken === null) {
+      return;
+    }
     if (shippingSubdivision)
       fetchShippingOptions(
         checkoutToken.id,
         shippingCountry,
         shippingSubdivision
       );
-  }, [shippingSubdivision]);
+  }, [shippingSubdivision, checkoutToken, shippingCountry]);
 
   return (
     <>
@@ -78,7 +89,7 @@ const AdressingStep = ({ checkoutToken }) => {
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit((data) =>
-            test({
+            next({
               ...data,
               shippingCountry,
               shippingSubdivision,
@@ -146,10 +157,11 @@ const AdressingStep = ({ checkoutToken }) => {
             </Grid>
           </Grid>
           <br />
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <Button component={Link} variant="outlined" to="/cart">
-              Back to Cart
-            </Button>
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <Link to="/cart">
+              {" "}
+              <Button variant="outlined">Back to Cart</Button>
+            </Link>
             <Button type="submit" variant="contained" color="primary">
               Next
             </Button>
