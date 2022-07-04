@@ -20,7 +20,7 @@ import { commerce } from "../../lib/commerce";
 
 const steps = ["Shipping address", "Payment details"];
 
-const Checkout = ({ cart }) => {
+const Checkout = ({ cart, onCaptureCheckout }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
@@ -32,7 +32,13 @@ const Checkout = ({ cart }) => {
     activeStep === 0 ? (
       <AdressingStep checkoutToken={checkoutToken} next={next} />
     ) : (
-      <PaymentStep />
+      <PaymentStep
+        checkoutToken={checkoutToken}
+        backStep={backStep}
+        shippingData={shippingData}
+        onCaptureCheckout={onCaptureCheckout}
+        nextStep={nextStep}
+      />
     );
 
   useEffect(() => {
@@ -55,6 +61,9 @@ const Checkout = ({ cart }) => {
 
   const nextStep = () => {
     setActiveStep((prev) => prev + 1);
+  };
+  const backStep = () => {
+    setActiveStep((prev) => prev - 1);
   };
 
   const next = (data) => {

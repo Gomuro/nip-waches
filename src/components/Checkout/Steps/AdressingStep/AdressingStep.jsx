@@ -3,7 +3,6 @@ import {
   Button,
   Grid,
   InputLabel,
-  Link,
   MenuItem,
   Select,
   TextField,
@@ -158,10 +157,6 @@ const AdressingStep = ({ checkoutToken, next }) => {
           </Grid>
           <br />
           <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <Link to="/cart">
-              {" "}
-              <Button variant="outlined">Back to Cart</Button>
-            </Link>
             <Button type="submit" variant="contained" color="primary">
               Next
             </Button>
