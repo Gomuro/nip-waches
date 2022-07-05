@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CssBaseline } from "@material-ui/core";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { StoreProvider } from "./context/storeContext";
 
 import Products from "./components/Products/Products";
@@ -59,8 +58,6 @@ const App = () => {
       );
 
       setOrder(incomingOrder);
-
-      refreshCart();
     } catch (error) {
       setErrorMessage(error.data.error.message);
     }
@@ -76,6 +73,7 @@ const App = () => {
         value={{
           onUpdateCartQty: handleUpdateCartQty,
           onRemoveFromCart: handleRemoveFromCart,
+          refreshCart: refreshCart,
         }}
       >
         <Router>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Typography, Button, Divider } from "@material-ui/core";
 import {
   Elements,
@@ -7,6 +7,7 @@ import {
 } from "@stripe/react-stripe-js";
 import Review from "./Review";
 import { loadStripe } from "@stripe/stripe-js";
+import StoreContext from "../../../../context/storeContext";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -17,6 +18,7 @@ const PaymentStep = ({
   onCaptureCheckout,
   nextStep,
 }) => {
+  const { refreshCart } = useContext(StoreContext);
   const handleSubmit = async (event, elements, stripe) => {
     event.preventDefault();
 
@@ -55,6 +57,8 @@ const PaymentStep = ({
         },
       };
       onCaptureCheckout(checkoutToken.id, orderData);
+
+      refreshCart();
 
       nextStep();
     }
