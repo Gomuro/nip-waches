@@ -15,10 +15,7 @@ import useStyles from "./styles";
 const CartItem = ({ lineItem }) => {
   const classes = useStyles();
   const { onUpdateCartQty, onRemoveFromCart } = useContext(StoreContext);
-  console.log(
-    "🚀 ~ file: CartItem.jsx ~ line 15 ~ CartItem ~ lineItem",
-    lineItem
-  );
+
   const [value, setValue] = useState(lineItem.quantity);
   const handleUpdateCartQty = (lineItemId, newQuantity) =>
     onUpdateCartQty(lineItemId, newQuantity);

@@ -74,6 +74,7 @@ const App = () => {
           onUpdateCartQty: handleUpdateCartQty,
           onRemoveFromCart: handleRemoveFromCart,
           refreshCart: refreshCart,
+          order: order,
         }}
       >
         <Router>

@@ -20,8 +20,6 @@ const AdressingStep = ({ checkoutToken, next }) => {
   const [shippingOption, setShippingOption] = useState("");
   const methods = useForm();
 
-  console.log(shippingCountries);
-
   const fetchShippingCountries = async (checkoutTokenId) => {
     const { countries } = await commerce.services.localeListShippingCountries(
       checkoutTokenId

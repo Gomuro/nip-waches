@@ -51,7 +51,7 @@ const Checkout = ({ cart, onCaptureCheckout }) => {
 
           setCheckoutToken(token);
         } catch {
-          if (activeStep !== steps.length) navigate.push("/");
+          if (activeStep !== steps.length) navigate("/");
         }
       };
 

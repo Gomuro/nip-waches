@@ -33,6 +33,14 @@ const PaymentStep = ({
     if (err) {
       console.log("[err]", err);
     } else {
+      console.log(
+        "🚀 ~ file: PaymentStep.jsx ~ line 66 ~ handleSubmit ~ shippingData",
+        checkoutToken
+      );
+      console.log(
+        "🚀 ~ file: PaymentStep.jsx ~ line 66 ~ handleSubmit ~ shippingData",
+        shippingData.firstName
+      );
       const orderData = {
         line_items: checkoutToken.live.line_items,
         customer: {
@@ -51,7 +59,7 @@ const PaymentStep = ({
         fulfillment: { shipping_method: shippingData.shippingOption },
         payment: {
           gateway: "stripe",
-          stripe: {
+          card: {
             payment_method_id: paymentMethod.id,
           },
         },
