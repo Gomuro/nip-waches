@@ -5,7 +5,7 @@ import { StoreProvider } from "./context/storeContext";
 import Products from "./components/Products/Products";
 import Navbar from "./components/Navbar/Navbar";
 import Cart from "./components/Cart/Cart";
-import Checkout from "./components/Checkout/Checkout";
+import CheckoutForm from "./components/CheckoutForm/Checkout/Checkout";
 
 import { commerce } from "./lib/commerce";
 
@@ -96,7 +96,7 @@ const App = () => {
               exact
               path="/checkout"
               element={
-                <Checkout
+                <CheckoutForm
                   cart={cart}
                   onCaptureCheckout={handleCaptureCheckout}
                 />
