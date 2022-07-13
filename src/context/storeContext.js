@@ -1,6 +1,6 @@
-import React from "react";
+import React, { createContext } from "react";
 
-const StoreContext = React.createContext({});
+const StoreContext = createContext({});
 
 export const StoreProvider = StoreContext.Provider;
 

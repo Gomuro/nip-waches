@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { Navbar, Products, Cart, Checkout } from "./components";
+import { Navbar, Products, Cart, Checkout, ProductDetails } from "./components";
 import { commerce } from "./lib/commerce";
+import { StoreProvider } from "./context/storeContext";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -75,54 +76,57 @@ const App = () => {
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   return (
-    <Router>
-      <div style={{ display: "flex" }}>
-        <CssBaseline />
-        <Navbar
-          totalItems={cart.total_items}
-          handleDrawerToggle={handleDrawerToggle}
-        />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <Products
-                products={products}
-                onAddToCart={handleAddToCart}
-                handleUpdateCartQty
-              />
-            }
+    <StoreProvider value={{ products: products }}>
+      <Router>
+        <div style={{ display: "flex" }}>
+          <CssBaseline />
+          <Navbar
+            totalItems={cart.total_items}
+            handleDrawerToggle={handleDrawerToggle}
           />
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Products
+                  products={products}
+                  onAddToCart={handleAddToCart}
+                  handleUpdateCartQty
+                />
+              }
+            />
 
-          <Route
-            exact
-            path="/cart"
-            element={
-              <Cart
-                cart={cart}
-                onUpdateCartQty={handleUpdateCartQty}
-                onRemoveFromCart={handleRemoveFromCart}
-                onEmptyCart={handleEmptyCart}
-              />
-            }
-          />
+            <Route
+              exact
+              path="/cart"
+              element={
+                <Cart
+                  cart={cart}
+                  onUpdateCartQty={handleUpdateCartQty}
+                  onRemoveFromCart={handleRemoveFromCart}
+                  onEmptyCart={handleEmptyCart}
+                />
+              }
+            />
 
-          <Route
-            path="/checkout"
-            exact
-            element={
-              <Checkout
-                cart={cart}
-                order={order}
-                onCaptureCheckout={handleCaptureCheckout}
-                error={errorMessage}
-              />
-            }
-          />
-        </Routes>
-      </div>
-    </Router>
+            <Route
+              path="/checkout"
+              exact
+              element={
+                <Checkout
+                  cart={cart}
+                  order={order}
+                  onCaptureCheckout={handleCaptureCheckout}
+                  error={errorMessage}
+                />
+              }
+            />
+            <Route path="/products/:id" element={<ProductDetails />} />
+          </Routes>
+        </div>
+      </Router>
+    </StoreProvider>
   );
 };
 
