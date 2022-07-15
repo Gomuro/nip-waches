@@ -66,33 +66,26 @@ const PrimarySearchAppBar = ({ totalItems }) => {
             className={classes.title}
             color="inherit"
           >
-            <img
-              src={logo}
-              alt="commerce.js"
-              height="25px"
-              className={classes.image}
-            />{" "}
             Nip Watches
           </Typography>
           <div className={classes.grow} />
-          {location.pathname === "/" && (
-            <div className={classes.button}>
-              <IconButton
-                component={Link}
-                to="/cart"
-                aria-label="Show cart items"
-                color="inherit"
+
+          <div className={classes.button}>
+            <IconButton
+              component={Link}
+              to="/cart"
+              aria-label="Show cart items"
+              color="inherit"
+            >
+              <Badge
+                overlap="rectangular"
+                badgeContent={totalItems}
+                color="secondary"
               >
-                <Badge
-                  overlap="rectangular"
-                  badgeContent={totalItems}
-                  color="secondary"
-                >
-                  <ShoppingCart />
-                </Badge>
-              </IconButton>
-            </div>
-          )}
+                <ShoppingCart />
+              </Badge>
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}

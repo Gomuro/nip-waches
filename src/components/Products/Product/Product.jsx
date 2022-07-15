@@ -27,14 +27,21 @@ const Product = ({ product, onAddToCart }) => {
       <CardContent>
         <div className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h2">
-            {product.name}
+            {product.name.length > 20
+              ? `${product.name.substring(0, 20)}...`
+              : product.name}
           </Typography>
           <Typography gutterBottom variant="h5" component="h2">
             ${product.price.formatted}
           </Typography>
         </div>
         <Typography
-          dangerouslySetInnerHTML={{ __html: product.description }}
+          dangerouslySetInnerHTML={{
+            __html:
+              product.description.length > 100
+                ? `${product.description.substring(0, 100)}...`
+                : product.description,
+          }}
           variant="body2"
           color="textSecondary"
           component="p"
