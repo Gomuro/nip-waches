@@ -122,7 +122,10 @@ const App = () => {
                 />
               }
             />
-            <Route path="/products/:id" element={<ProductDetails />} />
+            <Route
+              path="/products/:id"
+              element={<ProductDetails onAddToCart={handleAddToCart} />}
+            />
           </Routes>
         </div>
       </Router>

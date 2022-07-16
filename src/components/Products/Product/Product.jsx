@@ -27,9 +27,7 @@ const Product = ({ product, onAddToCart }) => {
       <CardContent>
         <div className={classes.cardContent}>
           <Typography gutterBottom variant="h5" component="h2">
-            {product.name.length > 20
-              ? `${product.name.substring(0, 20)}...`
-              : product.name}
+            {product.name}
           </Typography>
           <Typography gutterBottom variant="h5" component="h2">
             ${product.price.formatted}
