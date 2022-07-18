@@ -33,101 +33,102 @@ const ProductDetails = ({ onAddToCart }) => {
           return (
             <>
               <main>
-                <Grid container justify="center" style={{ marginTop: "100px" }}>
+                <Grid
+                  container
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                >
                   <Grid
                     container
-                    direction="column"
-                    justifyContent="center"
+                    direction="row"
+                    justifyContent="space-around"
+                    color="primary"
                     alignItems="center"
+                    xs={12}
+                    style={{
+                      marginTop: "70px",
+
+                      maxWidth: "75%",
+
+                      borderRadius: "40px",
+                    }}
                   >
                     <CardMedia
-                      style={{
-                        height: "600px",
-                        width: "600px",
-                        hover: {
-                          backgroundColor: "green",
-                          color: "white",
-                        },
-                      }}
+                      className={classes.media}
                       image={product.image.url}
                       title="lore"
                     />
-                  </Grid>
+                    <Grid item xs={6}>
+                      <Typography variant="h5">{product.name}</Typography>
+                      <Typography
+                        backgroundColor="primary"
+                        style={{
+                          maxWidth: "100%",
+                        }}
+                        dangerouslySetInnerHTML={{
+                          __html: product.description,
+                        }}
+                        component="p"
+                      />
 
-                  <Grid
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                  >
-                    <Button
-                      variant="outlined"
-                      className={classes.iconButton}
-                      disabled={value === 0}
-                      onClick={() => onAddToCart(product.id, value)}
-                    >
-                      add to cart
-                    </Button>
-                    <Box>
                       <Grid
                         container
+                        direction="row"
                         justifyContent="space-around"
                         alignItems="center"
                       >
                         <Button
-                          variant="outlined"
-                          type="button"
-                          size="small"
-                          onClick={(e) => {
-                            if (value === 0) return;
-                            setValue(value - 1);
-                          }}
+                          variant="contained"
+                          color="secondary"
+                          disabled={value === 0}
+                          onClick={() => onAddToCart(product.id, value)}
                         >
-                          -
+                          add to cart
                         </Button>
+                        <Box>
+                          <Button
+                            type="button"
+                            size="small"
+                            onClick={(e) => {
+                              if (value === 0) return;
+                              setValue(value - 1);
+                            }}
+                          >
+                            -
+                          </Button>
 
-                        <TextField
-                          style={{ width: "40px" }}
-                          size="small"
-                          label="quantity"
-                          value={value}
-                          onChange={(e) => {
-                            if (
-                              !Number.isInteger(+e.target.value) ||
-                              value > 1000
-                            ) {
-                              return;
-                            }
-                            setValue(e.target.value);
-                          }}
-                        ></TextField>
+                          <TextField
+                            style={{ width: "40px" }}
+                            size="small"
+                            label="quantity"
+                            value={value}
+                            onChange={(e) => {
+                              if (
+                                !Number.isInteger(+e.target.value) ||
+                                value > 1000
+                              ) {
+                                return;
+                              }
+                              setValue(e.target.value);
+                            }}
+                          ></TextField>
 
-                        <Button
-                          variant="outlined"
-                          type="button"
-                          size="small"
-                          onClick={(e) => {
-                            setValue(value + 1);
-                          }}
-                        >
-                          +
-                        </Button>
+                          <Button
+                            type="button"
+                            size="small"
+                            onClick={(e) => {
+                              setValue(value + 1);
+                            }}
+                          >
+                            +
+                          </Button>
+                        </Box>
+                        <Typography variant="h6" color="primary">
+                          {product.price.formatted_with_symbol}
+                        </Typography>
                       </Grid>
-                    </Box>
-                    <Typography variant="h5">{product.name}</Typography>
-                    <Typography variant="h6">
-                      {product.price.formatted_with_symbol}
-                    </Typography>
-
-                    <Typography
-                      style={{ maxWidth: "70%" }}
-                      dangerouslySetInnerHTML={{
-                        __html: product.description,
-                      }}
-                      variant="body1"
-                      color="textPrimary"
-                      component="p"
-                    />
+                    </Grid>
                   </Grid>
                 </Grid>
               </main>
