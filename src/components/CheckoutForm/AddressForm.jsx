@@ -101,9 +101,15 @@ const AddressForm = ({ checkoutToken, test }) => {
               label="First name"
               errors={methods.formState.errors}
               {...methods.register("firstName", {
-                required: true,
-                maxLength: 10,
-                pattern: /^([^0-9]*)$/,
+                required: { value: true, message: "First name is required" },
+                maxLength: {
+                  value: 30,
+                  message: "First name must be at least 30 characters",
+                },
+                pattern: {
+                  value: /^([^0-9]*)$/,
+                  message: "First name must be without numbers",
+                },
               })}
             />
 
@@ -113,19 +119,28 @@ const AddressForm = ({ checkoutToken, test }) => {
               label="Last name"
               errors={methods.formState.errors}
               {...methods.register("lastName", {
-                required: true,
-                maxLength: 10,
-                pattern: /^([^0-9]*)$/,
+                required: { value: true, message: "Last name is required" },
+                maxLength: {
+                  value: 30,
+                  message: "Last name must be at least 30 characters",
+                },
+                pattern: {
+                  value: /^([^0-9]*)$/,
+                  message: "Last name must be without numbers",
+                },
               })}
             />
             <FormInput
               required
-              name="address1"
-              label="Address line 1"
+              name="Address"
+              label="Address line"
               errors={methods.formState.errors}
               {...methods.register("address1", {
-                required: true,
-                maxLength: 30,
+                required: { value: true, message: "Address is required" },
+                maxLength: {
+                  value: 30,
+                  message: "Address must be at least 30 characters",
+                },
               })}
             />
             <FormInput
@@ -134,9 +149,15 @@ const AddressForm = ({ checkoutToken, test }) => {
               label="Email"
               errors={methods.formState.errors}
               {...methods.register("email", {
-                required: true,
-                maxLength: 30,
-                pattern: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                required: { value: true, message: "Email is required" },
+                maxLength: {
+                  value: 50,
+                  message: "Email must be at least 50 characters",
+                },
+                pattern: {
+                  value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                  message: "Email address is invalid",
+                },
               })}
             />
             <FormInput
@@ -145,7 +166,7 @@ const AddressForm = ({ checkoutToken, test }) => {
               label="City"
               errors={methods.formState.errors}
               {...methods.register("city", {
-                required: true,
+                required: { value: true, message: "City name is required" },
                 maxLength: 30,
                 pattern: /^([^0-9]*)$/,
               })}
@@ -156,8 +177,11 @@ const AddressForm = ({ checkoutToken, test }) => {
               label="Zip / Postal code"
               errors={methods.formState.errors}
               {...methods.register("zip", {
-                required: true,
-                maxLength: 10,
+                required: { value: true, message: "Zip code is required" },
+                pattern: {
+                  value: /(^\d{5}$)|(^\d{9}$)|(^\d{5}-\d{4}$)/,
+                  message: "Zip code invalid",
+                },
               })}
             />
             <Grid item xs={12} sm={6}>

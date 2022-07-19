@@ -8,7 +8,7 @@ const FormInput = ({ name, label, required, errors }) => {
   let errorMessage = "";
   if (errors && errors.hasOwnProperty(name)) {
     isError = true;
-    errorMessage = errors[name].type;
+    errorMessage = errors[name].message;
   }
   React.useEffect(() => {
     if (errors) {
