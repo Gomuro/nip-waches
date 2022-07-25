@@ -3,11 +3,13 @@ import Grid from "@material-ui/core/Grid";
 
 import Product from "./Product/Product";
 import useStyles from "./styles";
+import ReviewedProducts from "../ReviewedProducts/ReviewedProducts";
 
 const Products = ({ products, onAddToCart }) => {
   const classes = useStyles();
 
   if (!products.length) return <p>Loading...</p>;
+  const data = JSON.parse(localStorage.getItem("items"));
 
   return (
     <main className={classes.content}>
@@ -19,6 +21,7 @@ const Products = ({ products, onAddToCart }) => {
           </Grid>
         ))}
       </Grid>
+      {data ? <ReviewedProducts /> : ""}
     </main>
   );
 };

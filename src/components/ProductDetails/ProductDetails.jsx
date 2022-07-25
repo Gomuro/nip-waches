@@ -1,9 +1,7 @@
 import {
   Box,
   Button,
-  ButtonBase,
   CardMedia,
-  Container,
   Grid,
   TextField,
   Typography,
@@ -11,7 +9,7 @@ import {
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import StoreContext from "../../context/storeContext";
-import Product from "../Products/Product/Product";
+import ReviewedProducts from "../ReviewedProducts/ReviewedProducts";
 import useStyles from "./styles";
 
 const ProductDetails = ({ onAddToCart }) => {
@@ -21,27 +19,22 @@ const ProductDetails = ({ onAddToCart }) => {
   const [value, setValue] = useState(1);
   const product = products.find((x) => x.id === id);
   const data = JSON.parse(localStorage.getItem("items"));
-  console.log(
-    "🚀 ~ file: ProductDetails.jsx ~ line 24 ~ ProductDetails ~ data",
-    data
-  );
+
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("items"));
     if (product) {
       if (!data) {
         localStorage.setItem("items", JSON.stringify([product]));
-        console.log(" додало");
         return;
       }
 
       const dataItem = data.find((item) => item.id === product.id);
 
-      console.log(
-        "🚀 ~ file: ProductDetails.jsx ~ line 34 ~ useEffect ~ dataItem",
-        dataItem,
-        product
-      );
       if (!dataItem) {
+        localStorage.setItem("items", JSON.stringify([...data, product]));
+      }
+      if (data.length >= 9) {
+        data.splice(0, 1);
+
         localStorage.setItem("items", JSON.stringify([...data, product]));
       }
       return;
@@ -150,24 +143,8 @@ const ProductDetails = ({ onAddToCart }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          container
-          justifyContent="center"
-          spacing={4}
-          style={{ marginTop: "50px", marginBottom: "50px" }}
-        >
-          <Typography variant="h6">Last reviewed products</Typography>
-        </Grid>
 
-        <Grid container justifyContent="center" spacing={4}>
-          {data
-            ? data.map((product) => (
-                <Grid key={product.id} item xs={12} sm={6} md={4} lg={3}>
-                  <Product product={product} onAddToCart={onAddToCart} />
-                </Grid>
-              ))
-            : ""}
-        </Grid>
+        {data ? <ReviewedProducts /> : ""}
       </main>
     </>
   );

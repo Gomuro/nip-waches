@@ -3,22 +3,18 @@ import {
   Card,
   CardMedia,
   CardContent,
-  CardActions,
   Typography,
-  IconButton,
   CardActionArea,
   CardHeader,
   Grid,
 } from "@material-ui/core";
-import { AddShoppingCart } from "@material-ui/icons";
 
 import useStyles from "./styles";
 import { Link } from "react-router-dom";
 
-const Product = ({ product, onAddToCart }) => {
+const TinyProduct = ({ product }) => {
   const classes = useStyles();
-
-  const handleAddToCart = () => onAddToCart(product.id, 1);
+  if (product === undefined) return <p>Loading...</p>;
   return (
     <Card className={classes.root}>
       <Grid
@@ -28,44 +24,23 @@ const Product = ({ product, onAddToCart }) => {
         alignItems="flex-end"
       >
         <CardActionArea component={Link} to={`/products/${product.id}`}>
-          <CardHeader title={product.name} />
           <CardMedia
             className={classes.media}
             image={product.image.url}
             title={product.name}
           />
+          <CardHeader title={product.name} />
           <CardContent>
             <div className={classes.cardContent}>
               <Typography gutterBottom variant="h5" component="h2">
                 {product.price.formatted_with_symbol}
               </Typography>
             </div>
-
-            <Typography
-              dangerouslySetInnerHTML={{
-                __html:
-                  product.description.length > 100
-                    ? `${product.description.substring(0, 100)}...`
-                    : product.description,
-              }}
-              variant="body2"
-              color="textSecondary"
-              component="p"
-            />
           </CardContent>
         </CardActionArea>
-        <CardActions disableSpacing className={classes.cardActions}>
-          <IconButton
-            aria-label="Add to Cart"
-            onClick={handleAddToCart}
-            color="primary"
-          >
-            <AddShoppingCart />
-          </IconButton>
-        </CardActions>
       </Grid>
     </Card>
   );
 };
 
-export default Product;
+export default TinyProduct;
