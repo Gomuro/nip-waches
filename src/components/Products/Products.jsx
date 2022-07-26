@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Product from "./Product/Product";
 import useStyles from "./styles";
 import ReviewedProducts from "../ReviewedProducts/ReviewedProducts";
+import InterestingProducts from "../InterestingProducts/InterestingProducts";
 
 const Products = ({ products, onAddToCart }) => {
   const classes = useStyles();
@@ -21,6 +22,7 @@ const Products = ({ products, onAddToCart }) => {
           </Grid>
         ))}
       </Grid>
+      <InterestingProducts />
       {data ? <ReviewedProducts /> : ""}
     </main>
   );

@@ -9,14 +9,31 @@ import { StoreProvider } from "./context/storeContext";
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
+  const [categoriesData, setCategoriesData] = useState([]);
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
 
   const fetchProducts = async () => {
-    const { data } = await commerce.products.list();
-
-    setProducts(data);
+    const { data: products } = await commerce.products.list();
+    const { data: categoriesData } = await commerce.categories.list();
+    const productsPerCategory = categoriesData.reduce((acc, category) => {
+      return [
+        // ...acc,
+        // {
+        //   ...category,
+        //   productsData: products.filter((product) =>
+        //     product.category.find((cat) => cat.id === category.id)
+        //   ),
+        // },
+      ];
+    });
+    console.log(
+      "🚀 ~ file: App.js ~ line 35 ~ fetchProducts ~ productsPerCategory",
+      productsPerCategory
+    );
+    setCategoriesData(categoriesData);
+    setProducts(products);
   };
 
   const fetchCart = async () => {
@@ -70,6 +87,7 @@ const App = () => {
 
   useEffect(() => {
     fetchProducts();
+
     fetchCart();
   }, []);
 
@@ -88,7 +106,9 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <StoreProvider value={{ products: products }}>
+      <StoreProvider
+        value={{ products: products, categoriesData: categoriesData }}
+      >
         <Router>
           <div style={{ display: "flex" }}>
             <CssBaseline />
