@@ -19,11 +19,16 @@ const ProductDetails = ({ onAddToCart }) => {
   const [value, setValue] = useState(1);
   const product = products.find((x) => x.id === id);
   const data = JSON.parse(localStorage.getItem("items"));
+  const categories = JSON.parse(localStorage.getItem("categories"));
 
   useEffect(() => {
     if (product) {
+      const category = product.categories.find((c) => c);
       if (!data) {
         localStorage.setItem("items", JSON.stringify([product]));
+        if (!categories) {
+          localStorage.setItem("categories", JSON.stringify([category]));
+        }
         return;
       }
 
@@ -31,6 +36,14 @@ const ProductDetails = ({ onAddToCart }) => {
 
       if (!dataItem) {
         localStorage.setItem("items", JSON.stringify([...data, product]));
+      }
+      const categoryCheker = categories.find((cat) => cat.id === category.id);
+
+      if (!categoryCheker) {
+        localStorage.setItem(
+          "categories",
+          JSON.stringify([...categories, category])
+        );
       }
       if (data.length >= 9) {
         data.splice(0, 1);
@@ -51,6 +64,7 @@ const ProductDetails = ({ onAddToCart }) => {
           direction="row"
           justifyContent="center"
           alignItems="center"
+          item
           xs={12}
         >
           <Grid
@@ -59,6 +73,7 @@ const ProductDetails = ({ onAddToCart }) => {
             justifyContent="space-around"
             color="primary"
             alignItems="center"
+            item
             xs={12}
             style={{
               marginTop: "70px",
@@ -73,7 +88,7 @@ const ProductDetails = ({ onAddToCart }) => {
               image={product.image.url}
               title="lore"
             />
-            <Grid xs={6}>
+            <Grid item xs={6}>
               <Typography variant="h5">{product.name}</Typography>
               <Typography
                 backgroundcolor="primary"
@@ -91,6 +106,7 @@ const ProductDetails = ({ onAddToCart }) => {
                 direction="row"
                 justifyContent="space-around"
                 alignItems="center"
+                item
                 xs={12}
               >
                 <Button

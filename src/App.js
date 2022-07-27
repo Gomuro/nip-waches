@@ -19,15 +19,15 @@ const App = () => {
     const { data: categoriesData } = await commerce.categories.list();
     const productsPerCategory = categoriesData.reduce((acc, category) => {
       return [
-        // ...acc,
-        // {
-        //   ...category,
-        //   productsData: products.filter((product) =>
-        //     product.category.find((cat) => cat.id === category.id)
-        //   ),
-        // },
+        ...acc,
+        {
+          ...category,
+          productsData: products.filter((product) =>
+            product.categories.find((cat) => cat.id === category.id)
+          ),
+        },
       ];
-    });
+    }, []);
     console.log(
       "🚀 ~ file: App.js ~ line 35 ~ fetchProducts ~ productsPerCategory",
       productsPerCategory

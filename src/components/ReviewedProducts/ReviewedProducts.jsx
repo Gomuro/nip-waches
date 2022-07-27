@@ -18,6 +18,9 @@ const ReviewedProducts = () => {
         ? data.map((product) => (
             <>
               <Grid
+                container
+                key={product.id}
+                item
                 xs={12}
                 sm={6}
                 md={4}
@@ -25,7 +28,7 @@ const ReviewedProducts = () => {
                 justifyContent="center"
                 alignItems="center"
               >
-                <TinyProduct product={product} />
+                <TinyProduct key={product.id} product={product} />
               </Grid>
             </>
           ))
