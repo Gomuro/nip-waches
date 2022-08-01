@@ -28,10 +28,6 @@ const App = () => {
         },
       ];
     }, []);
-    console.log(
-      "🚀 ~ file: App.js ~ line 35 ~ fetchProducts ~ productsPerCategory",
-      productsPerCategory
-    );
     setCategoriesData(categoriesData);
     setProducts(products);
   };
@@ -95,11 +91,17 @@ const App = () => {
 
   const theme = createTheme({
     palette: {
+      background: {
+        default: "#E7F6F2",
+      },
       primary: {
-        main: "#395B64",
+        main: "#06283D",
       },
       secondary: {
-        main: "#A5C9CA",
+        main: "#47B5FF",
+      },
+      text: {
+        secondary: "#06283D",
       },
     },
   });

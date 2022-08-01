@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CardActionArea,
   CardMedia,
   Grid,
   TextField,
@@ -16,8 +17,14 @@ const ProductDetails = ({ onAddToCart }) => {
   const classes = useStyles();
   const { products } = useContext(StoreContext);
   let { id } = useParams();
-  const [value, setValue] = useState(1);
   const product = products.find((x) => x.id === id);
+  const [value, setValue] = useState(1);
+  const [imageValue, setImageValue] = useState("");
+  console.log(
+    "🚀 ~ file: ProductDetails.jsx ~ line 23 ~ ProductDetails ~ imageValue",
+    imageValue
+  );
+
   const data = JSON.parse(localStorage.getItem("items"));
   const categories = JSON.parse(localStorage.getItem("categories"));
 
@@ -50,6 +57,7 @@ const ProductDetails = ({ onAddToCart }) => {
 
         localStorage.setItem("items", JSON.stringify([...data, product]));
       }
+      setImageValue(product.image.url);
       return;
     }
   }, []);
@@ -74,6 +82,7 @@ const ProductDetails = ({ onAddToCart }) => {
             color="primary"
             alignItems="center"
             item
+            spacing={10}
             xs={12}
             style={{
               marginTop: "70px",
@@ -83,24 +92,46 @@ const ProductDetails = ({ onAddToCart }) => {
               borderRadius: "40px",
             }}
           >
-            <CardMedia
-              className={classes.media}
-              image={product.image.url}
-              title="lore"
-            />
-            <Grid item xs={6}>
-              <Typography variant="h5">{product.name}</Typography>
-              <Typography
-                backgroundcolor="primary"
-                style={{
-                  maxWidth: "100%",
-                }}
-                dangerouslySetInnerHTML={{
-                  __html: product.description,
-                }}
-                component="p"
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              item
+            >
+              <CardMedia
+                className={classes.media}
+                image={imageValue ? imageValue : product.image.url}
+                title="lore"
               />
-
+              <Grid container direction="row" justifyContent="space-between">
+                {product.assets.map((item) => (
+                  <>
+                    <Grid
+                      container
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      item
+                      xs={2}
+                    >
+                      <CardActionArea
+                        onClick={() => {
+                          setImageValue(item.url);
+                        }}
+                      >
+                        <CardMedia
+                          className={classes.tinyMedia}
+                          image={item.url}
+                          title={item.filename}
+                        />
+                      </CardActionArea>
+                    </Grid>
+                  </>
+                ))}
+              </Grid>
+            </Grid>
+            <Grid item xs={8}>
               <Grid
                 container
                 direction="row"
@@ -156,6 +187,17 @@ const ProductDetails = ({ onAddToCart }) => {
                   {product.price.formatted_with_symbol}
                 </Typography>
               </Grid>
+              <Typography variant="h5">{product.name}</Typography>
+              <Typography
+                backgroundcolor="primary"
+                style={{
+                  maxWidth: "100%",
+                }}
+                dangerouslySetInnerHTML={{
+                  __html: product.description,
+                }}
+                component="p"
+              />
             </Grid>
           </Grid>
         </Grid>

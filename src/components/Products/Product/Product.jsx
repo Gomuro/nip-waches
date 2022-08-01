@@ -26,6 +26,7 @@ const Product = ({ product, onAddToCart }) => {
         direction="column"
         justifyContent="flex-end"
         alignItems="flex-end"
+        backgroundColor="primary"
       >
         <CardActionArea component={Link} to={`/products/${product.id}`}>
           <CardHeader title={product.name} />

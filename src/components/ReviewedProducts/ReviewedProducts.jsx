@@ -12,23 +12,26 @@ const ReviewedProducts = () => {
         spacing={4}
         style={{ marginTop: "50px", marginBottom: "50px" }}
       >
-        <Typography variant="h6">Last reviewed products</Typography>
+        <Typography variant="h4" color="textSecondary">
+          Last reviewed products
+        </Typography>
       </Grid>
       {data
         ? data.map((product) => (
             <>
               <Grid
-                container
                 key={product.id}
                 item
                 xs={12}
                 sm={6}
                 md={4}
                 lg={3}
+                container
                 justifyContent="center"
-                alignItems="center"
+                spacing={4}
+                style={{ marginTop: "50px", marginBottom: "50px" }}
               >
-                <TinyProduct key={product.id} product={product} />
+                <TinyProduct product={product} />
               </Grid>
             </>
           ))

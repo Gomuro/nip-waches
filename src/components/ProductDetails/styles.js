@@ -10,8 +10,16 @@ export default makeStyles(() => ({
   media: {
     height: 0,
     paddingTop: "56.25%", // 16:9
-    padding: "10px 300px",
-    maxWidth: "100%",
+    padding: "0px 250px",
+  },
+  tinyMedia: {
+    height: 0,
+    paddingTop: "56.25%", // 16:9
+    padding: "100px 100px",
+
+    "&:hover": {
+      opacity: 0.9,
+    },
   },
   iconButton: {
     backgroundColor: "white",
