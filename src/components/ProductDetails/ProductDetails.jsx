@@ -12,6 +12,10 @@ import { useParams } from "react-router";
 import StoreContext from "../../context/storeContext";
 import ReviewedProducts from "../ReviewedProducts/ReviewedProducts";
 import useStyles from "./styles";
+import {
+  ArrowBackIosOutlined,
+  ArrowForwardIosOutlined,
+} from "@material-ui/icons";
 
 const ProductDetails = ({ onAddToCart }) => {
   const classes = useStyles();
@@ -20,10 +24,7 @@ const ProductDetails = ({ onAddToCart }) => {
   const product = products.find((x) => x.id === id);
   const [value, setValue] = useState(1);
   const [imageValue, setImageValue] = useState("");
-  console.log(
-    "🚀 ~ file: ProductDetails.jsx ~ line 23 ~ ProductDetails ~ imageValue",
-    imageValue
-  );
+  const [couterValue, setCouterValue] = useState(1);
 
   const data = JSON.parse(localStorage.getItem("items"));
   const categories = JSON.parse(localStorage.getItem("categories"));
@@ -99,13 +100,53 @@ const ProductDetails = ({ onAddToCart }) => {
               alignItems="center"
               item
             >
+              <Button
+                onClick={() => {
+                  const items = product.assets;
+                  if (couterValue === 0) return;
+                  console.log(
+                    "🚀 ~ file: ProductDetails.jsx ~ line 107 ~ ProductDetails ~ couterValue",
+                    couterValue
+                  );
+                  setCouterValue((couterValue) => couterValue - 1);
+                  const item = items[couterValue];
+                  setImageValue(items[couterValue].url);
+                  console.log(
+                    "🚀 ~ file: ProductDetails.jsx ~ line 117 ~ ProductDetails ~ item",
+                    item.url,
+                    couterValue
+                  );
+                }}
+              >
+                <ArrowBackIosOutlined />
+              </Button>
               <CardMedia
                 className={classes.media}
                 image={imageValue ? imageValue : product.image.url}
                 title="lore"
               />
+              <Button
+                onClick={() => {
+                  const items = product.assets;
+                  if (couterValue >= 2) return;
+                  console.log(
+                    "🚀 ~ file: ProductDetails.jsx ~ line 132 ~ ProductDetails ~ couterValue",
+                    couterValue
+                  );
+                  setCouterValue((couterValue) => couterValue + 1);
+                  const item = items[couterValue];
+                  setImageValue(items[couterValue].url);
+                  console.log(
+                    "🚀 ~ file: ProductDetails.jsx ~ line 117 ~ ProductDetails ~ item",
+                    item.url,
+                    couterValue
+                  );
+                }}
+              >
+                <ArrowForwardIosOutlined />
+              </Button>
               <Grid container direction="row" justifyContent="space-between">
-                {product.assets.map((item) => (
+                {product.assets.map((item, i) => (
                   <>
                     <Grid
                       container
@@ -118,6 +159,7 @@ const ProductDetails = ({ onAddToCart }) => {
                       <CardActionArea
                         onClick={() => {
                           setImageValue(item.url);
+                          setCouterValue(i);
                         }}
                       >
                         <CardMedia

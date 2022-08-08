@@ -6,6 +6,7 @@ import useStyles from "./styles";
 import ReviewedProducts from "../ReviewedProducts/ReviewedProducts";
 
 import CuriosProduct from "../CuriosProducts/CuriosProduct";
+import { Typography } from "@material-ui/core";
 
 const Products = ({ products, onAddToCart }) => {
   const classes = useStyles();
@@ -16,7 +17,18 @@ const Products = ({ products, onAddToCart }) => {
   return (
     <main className={classes.content}>
       <div className={classes.toolbar} />
+
       <Grid container justifyContent="center" spacing={4}>
+        <Grid
+          container
+          justifyContent="center"
+          spacing={4}
+          style={{ marginTop: "20px", marginBottom: "15px" }}
+        >
+          <Typography variant="h4" color="textSecondary">
+            Top of sales
+          </Typography>
+        </Grid>
         {products.map((product) => (
           <Grid
             key={product.id}

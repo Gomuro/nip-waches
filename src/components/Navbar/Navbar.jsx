@@ -7,16 +7,32 @@ import {
   MenuItem,
   Menu,
   Typography,
+  Box,
+  Grid,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@material-ui/core";
-import { ShoppingCart } from "@material-ui/icons";
-import { Link, useLocation } from "react-router-dom";
+import {
+  Search,
+  ShoppingCart,
+  Menu as MenuIcon,
+  Search as SearchIcon,
+  Close as CloseIcon,
+} from "@material-ui/icons";
+
+import { Link } from "react-router-dom";
+import { styled } from "@mui/material/styles";
 
 import useStyles from "./styles";
+import { ListItemButton } from "@mui/material";
 
 const PrimarySearchAppBar = ({ totalItems }) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
+  const [toggleMenu, setToggleMenu] = useState(false);
   const classes = useStyles();
-  const location = useLocation();
 
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -58,6 +74,90 @@ const PrimarySearchAppBar = ({ totalItems }) => {
     <>
       <AppBar position="fixed" className={classes.appBar} color="primary">
         <Toolbar>
+          <Grid
+            container
+            direction="row"
+            justifyContent="space-around"
+            alignItems="center"
+          >
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+            >
+              Nip Watches
+            </Typography>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+            >
+              <Search>
+                <SearchIcon />
+              </Search>
+              <div className={classes.button}>
+                <IconButton
+                  component={Link}
+                  to="/cart"
+                  aria-label="Show cart items"
+                  color="inherit"
+                >
+                  <Badge
+                    overlap="rectangular"
+                    badgeContent={totalItems}
+                    color="secondary"
+                  >
+                    <ShoppingCart />
+                  </Badge>
+                </IconButton>
+              </div>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                sx={{ mr: 2 }}
+                onClick={() => {
+                  setToggleMenu((toggleMenu) => {
+                    return !toggleMenu;
+                  });
+                }}
+              >
+                {toggleMenu ? <CloseIcon /> : <MenuIcon />}
+              </IconButton>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+
+      <Drawer
+        anchor="right"
+        open={toggleMenu}
+        onClose={() => {
+          setToggleMenu(!toggleMenu);
+        }}
+      >
+        <List>
+          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      {renderMobileMenu}
+    </>
+  );
+};
+
+export default PrimarySearchAppBar;
+{
+  /* <AppBar position="fixed" className={classes.appBar} color="primary">
+        <Toolbar>
           <Typography
             component={Link}
             to="/"
@@ -86,10 +186,5 @@ const PrimarySearchAppBar = ({ totalItems }) => {
             </IconButton>
           </div>
         </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-    </>
-  );
-};
-
-export default PrimarySearchAppBar;
+      </AppBar> */
+}

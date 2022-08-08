@@ -10,6 +10,11 @@ const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [products, setProducts] = useState([]);
   const [categoriesData, setCategoriesData] = useState([]);
+  const [sortedProducts, setSortedProducts] = useState([]);
+  console.log(
+    "🚀 ~ file: App.js ~ line 14 ~ App ~ sortedProducts",
+    sortedProducts
+  );
   const [cart, setCart] = useState({});
   const [order, setOrder] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
@@ -28,6 +33,7 @@ const App = () => {
         },
       ];
     }, []);
+    setSortedProducts(productsPerCategory);
     setCategoriesData(categoriesData);
     setProducts(products);
   };
