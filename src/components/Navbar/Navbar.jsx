@@ -28,6 +28,7 @@ import { styled } from "@mui/material/styles";
 
 import useStyles from "./styles";
 import { ListItemButton } from "@mui/material";
+import MenuComponent from "./MenuComponent/MenuComponent";
 
 const PrimarySearchAppBar = ({ totalItems }) => {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -139,15 +140,7 @@ const PrimarySearchAppBar = ({ totalItems }) => {
           setToggleMenu(!toggleMenu);
         }}
       >
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+        <MenuComponent />
       </Drawer>
       {renderMobileMenu}
     </>
