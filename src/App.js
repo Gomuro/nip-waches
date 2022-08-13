@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Navbar, Products, Cart, Checkout, ProductDetails } from "./components";
 import { commerce } from "./lib/commerce";
 import { StoreProvider } from "./context/storeContext";
+import About from "./components/About/About";
 
 const App = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -162,6 +163,7 @@ const App = () => {
                   />
                 }
               />
+              <Route path="/about" exact element={<About />} />
               <Route
                 path="/products/:id"
                 element={<ProductDetails onAddToCart={handleAddToCart} />}

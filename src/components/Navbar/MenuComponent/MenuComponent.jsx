@@ -9,7 +9,8 @@ const MenuComponent = () => {
         { text: "Home", link: "/" },
         { text: "Cart", link: "/cart" },
         { text: "Checkout", link: "/checkout" },
-        { text: "Categories", link: "/" },
+        { text: "About me", link: "/about" },
+        { text: "Contact", link: "/contact" },
       ].map((item) => (
         <ListItem key={item} disablePadding>
           <ListItemButton component={Link} to={item.link}>
